@@ -1,1 +1,234 @@
-testing new file
+===============================
+⚡ GIT CHEATSHEET – FULL MAP
+===============================
+
+🧠 GRUNDLOGIK
+
+LOCAL → REMOTE:
+switch → add → commit → push -u
+
+REMOTE → LOCAL:
+fetch → switch --track
+
+RESET:
+fetch → reset --hard
+
+
+===============================
+🌿 LOCAL → REMOTE (neuer Branch)
+===============================
+
+git switch -c feature/x
+git add .
+git commit -m "feat: message"
+git push -u origin feature/x
+
+👉 Ergebnis:
+- Branch existiert lokal + auf GitHub (:contentReference[oaicite:0]{index=0})
+- Tracking aktiviert
+
+
+===============================
+🌍 REMOTE → LOCAL (Branch holen)
+===============================
+
+git fetch origin
+git switch --track origin/feature/x
+
+ODER:
+git checkout -b feature/x origin/feature/x
+
+👉 Ergebnis:
+- Remote Branch wird lokal erstellt
+- Tracking aktiv
+
+
+===============================
+🔄 NORMALER WORKFLOW
+===============================
+
+git add .
+git commit -m "fix: ..."
+git push
+git pull
+
+
+===============================
+🔄 RESET (LOCAL = REMOTE)
+===============================
+
+git fetch origin
+git reset --hard origin/main
+git clean -fd
+
+👉 Ergebnis:
+- alles lokal gelöscht
+- exakt wie GitHub
+
+
+===============================
+🧺 UNDO OPERATIONS
+===============================
+
+Datei zurück:
+git restore file
+
+Staging zurück:
+git restore --staged .
+
+Commit ändern:
+git commit --amend
+
+Letzten Commit löschen (lokal behalten):
+git reset --soft HEAD~1
+
+Letzten Commit komplett löschen:
+git reset --hard HEAD~1
+
+
+===============================
+🌿 BRANCH MANAGEMENT
+===============================
+
+lokal löschen:
+git branch -d feature/x
+
+remote löschen:
+git push origin --delete feature/x
+
+
+===============================
+⚠️ WICHTIGSTE REGELN
+===============================
+
+- git fetch = sicher (ändert nichts lokal)
+- git pull = fetch + merge
+- git reset --hard = zerstört lokale Änderungen
+- git push -u = verbindet Branch mit Remote
+- origin/branch = GitHub-Version
+
+
+===============================
+🚀 QUICK MEMORY FLOW
+===============================
+
+Arbeiten:
+switch → add → commit → push
+
+Holen:
+fetch → switch --track
+
+Reset:
+fetch → reset --hard
+
+
+===============================
+🆘 GIT CRASH SURVIVAL CARD
+===============================
+
+Wenn etwas kaputt geht:
+→ NICHT PANIK
+→ fast alles ist rettbar
+
+
+===============================
+🔥 1. ALLES IST DURCHEINANDER
+===============================
+
+Zustand prüfen:
+
+git status
+git branch -vv
+git log --oneline --graph --decorate -10
+
+
+===============================
+🧼 2. ALLES LOKAL AUF REMOTE ZURÜCKSETZEN
+===============================
+
+(ULTIMATE RESET – gefährlich!)
+
+git fetch origin
+git reset --hard origin/main
+git clean -fd
+
+👉 Ergebnis:
+- lokale Änderungen weg
+- exakt wie GitHub (:contentReference[oaicite:0]{index=0})
+
+
+===============================
+🧺 3. OHNE VERLUST ZURÜCKGEHEN (SAFE RESET)
+===============================
+
+Wenn du nichts verlieren willst:
+
+git stash
+git reset --hard origin/main
+
+Zurückholen:
+
+git stash pop
+
+
+===============================
+⏪ 4. LETZTE AKTION RÜCKGÄNGIG (RETTUNG)
+===============================
+
+ALLE verlorenen Zustände finden:
+
+git reflog
+
+Dann zurückspringen:
+
+git checkout <commit-id>
+
+ODER:
+
+git reset --hard <commit-id>
+
+
+===============================
+💥 5. FALSCHEN COMMIT FIXEN
+===============================
+
+Commit ändern:
+
+git commit --amend
+
+Commit entfernen (Änderungen behalten):
+
+git reset --soft HEAD~1
+
+Commit komplett löschen:
+
+git reset --hard HEAD~1
+
+
+===============================
+🌿 6. BRANCH RETTEN / WIEDERHERSTELLEN
+===============================
+
+Gelöschten Branch wiederholen:
+
+git reflog
+git checkout -b feature/x <commit-id>
+
+
+===============================
+🧠 GOLDENE REGEL
+===============================
+
+👉 90% der Fehler sind nicht verloren
+👉 git reflog ist deine Zeitmaschine
+👉 git reset ist dein Not-Aus
+
+
+===============================
+🚨 MERKE DIR DAS
+===============================
+
+fetch  → sicher (nur lesen)
+reset  → gefährlich (überschreibt)
+reflog → Rettung aller Fehler
+stash  → sicher parken
